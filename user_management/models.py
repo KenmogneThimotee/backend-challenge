@@ -3,6 +3,11 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import UserManager
 
 
+SEX_CHOICES = [
+    ('M', 'Male'),
+    ('F', 'Female'),
+]
+
 class User(AbstractBaseUser, PermissionsMixin):
     """
     Represents a user in a web application.
@@ -19,11 +24,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=100)
     date_of_birth = models.DateField(null=True, blank=True, default='1900-01-01')
 
-    SEX_CHOICES = [
-        ('M', 'Male'),
-        ('F', 'Female'),
-    ]
-    sex = models.CharField(max_length=1, choices=SEX_CHOICES, db_index=True, default='M')
+    sex = models.CharField(max_length=1, choices=SEX_CHOICES, default='M')
 
 
     objects = UserManager()
