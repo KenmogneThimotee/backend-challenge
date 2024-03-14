@@ -49,7 +49,7 @@ class LabelSerializer(serializers.ModelSerializer):
             many=True,
             required=False
         )
-                
+    
     class Meta:
         model = Label
         fields = ('id', 'name', 'created_by', 'tasks')
