@@ -1,6 +1,43 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from django.contrib.auth.models import UserManager
+# from django.contrib.auth.models import UserManager
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+
+
+class UserManager(BaseUserManager):
+
+    def create_user(self, email: str, password: str, first_name: str, last_name: str) -> 'User':
+        """
+        Creates a new user with the specified email, password, first name, and last name.
+        Returns the created user object.
+        """
+        user = self.model(email=self.normalize_email(email), first_name=first_name, last_name=last_name)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email: str, first_name: str, last_name: str, password=None, **extra_fields):
+        if not email:
+            raise ValueError("User must have an email")
+        if not password:
+            raise ValueError("User must have a password")
+        if not first_name:
+            raise ValueError("User must have a first_name")
+        if not last_name:
+            raise ValueError("User must have a last)name")
+
+        user = self.model(
+            email=self.normalize_email(email)
+        )
+        user.first_name = first_name
+        user.last_name = last_name
+        user.set_password(password)
+        user.is_superuser = True
+        user.is_staff = True
+        user.is_active = True
+        user.save(using=self._db)
+        return user
+
 
 
 SEX_CHOICES = [
@@ -35,15 +72,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     class Meta:
         ordering = ('email',)
 
-    def create_user(self, email: str, password: str, first_name: str, last_name: str) -> 'User':
-        """
-        Creates a new user with the specified email, password, first name, and last name.
-        Returns the created user object.
-        """
-        user = self.model(email=self.normalize_email(email), first_name=first_name, last_name=last_name)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
 
     def save(self, *args, **kwargs):
         """

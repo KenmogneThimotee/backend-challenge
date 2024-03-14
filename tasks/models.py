@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import IntegrityError, models
 from user_management.models import User
 
 # Create your models here.
@@ -28,3 +28,4 @@ class Label(models.Model):
     
     class Meta:
         ordering = ['name']
+    
