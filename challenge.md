@@ -70,6 +70,18 @@ This documentation will guide you through the process of pulling and running a D
 ### Step 6: Access the Admin Panel
 
 1. Log in to the Django admin panel by visiting `http://127.0.0.1:8000/admin/` in your web browser.
-3. User's credentials:
+2. User's credentials:
    1. email: user1@example.com, password: Xandercage03
    2. email user2@example.com, password: Xandercage03
+
+### Step 7: Test
+
+    You can run the test suite with this command
+
+```bash
+python manage.py test
+```
+
+### Step 8: Documentation
+
+You can have access to the documentation by visiting http://127.0.0.1:8000/docs/
