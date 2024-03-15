@@ -18,7 +18,7 @@ class Task(models.Model):
         
 
 class Label(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     tasks = models.ManyToManyField(Task)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
