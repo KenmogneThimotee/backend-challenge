@@ -37,28 +37,21 @@ class UserTestCase(TestCase):
             user.full_clean()
     
     def test_update_user_email_existing_email(self):
-        user_manager = UserManager()
     
-        # Create a user with the original email
-        original_email = 'user@example.com'
+        email = 'user@example.com'
         password = 'Password123'
         first_name = 'John'
         last_name = 'Doe'
-    
-        user_manager.create_user(original_email, password, first_name, last_name)
-    
-        # Create a user with the new email
-        new_email = 'newuser@example.com'
-        user_manager.create_user(new_email, password, first_name, last_name)
-    
-        # Update the email of the user with the original email to the new email
-        user = User.objects.get(email=original_email)
-        user.email = new_email
+        
+        user = User(email=email, password=password, first_name=first_name, last_name=last_name)
         user.save()
+        
+        user = User(email=email, password=password, first_name=first_name, last_name=last_name)
+        
+        with self.assertRaises(ValidationError):
+            user.full_clean()
     
-        # Check that the email has been updated
-        updated_user = User.objects.get(email=new_email)
-        self.assertEqual(updated_user.email, new_email)
+    
 
 
       

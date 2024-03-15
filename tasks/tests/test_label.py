@@ -1,13 +1,12 @@
 # app/tests/test_setup.py
 
-import uuid
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework.test import APIClient
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from user_management.models import User
-from tasks.models import Task, Label
+from tasks.models import Label
 
 class TestLabelAPI(TestCase):
 
